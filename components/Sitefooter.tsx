@@ -186,7 +186,7 @@ export default function SiteFooter() {
         {/* Bottom */}
         <div className="mt-12 flex flex-col gap-4 border-t border-white/[0.07] pt-6 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">
           <small className="text-[11px] text-slate-500">
-            © 2026 ArcadeLX. All rights reserved.
+            © 2026  Nilee Games and Future Technologies Pvt Ltd. All Rights Reserved
           </small>
 
           <span className="text-[9px] font-medium uppercase tracking-[0.2em] text-slate-600">

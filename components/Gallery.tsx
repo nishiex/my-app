@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
@@ -348,14 +348,14 @@ export default function Gallery() {
                     onMouseLeave={handleCardLeave}
                     className="group relative cursor-grab overflow-hidden rounded-xl active:cursor-grabbing"
                   >
-                    <div className="relative aspect-[3/5] overflow-hidden rounded-xl border border-white/[0.1] bg-[#071126] shadow-[0_12px_36px_rgba(0,0,0,0.28)] transition-all duration-300 group-hover:border-cyan-300/35">
+                    <div className="relative aspect-[9/16] sm:aspect-[3/5] overflow-hidden rounded-xl border border-white/[0.1] bg-[#071126] shadow-[0_12px_36px_rgba(0,0,0,0.28)] transition-all duration-300 group-hover:border-cyan-300/35">
                       <Image
                         src={item.image}
                         alt={item.alt}
                         fill
                         sizes="(max-width: 639px) 75vw, (max-width: 1023px) 31vw, 20vw"
                         draggable={false}
-                        className="select-none object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
+                        className="select-none object-contain sm:object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.045]"
                       />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/60 via-transparent to-transparent" />
@@ -374,7 +374,7 @@ export default function Gallery() {
             track height (inset-y-0 + flex items-center) so the button
             is centered WITHOUT using a translate-y transform. The
             button itself only ever applies hover:scale-110 to itself,
-            so there's no translate+scale collision on one element —
+            so there's no translate+scale collision on one element â€”
             that collision was what made the buttons jump downward on
             click/hover.
           */}
@@ -428,3 +428,4 @@ export default function Gallery() {
     </section>
   );
 }
+

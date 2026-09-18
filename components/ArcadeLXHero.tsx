@@ -380,7 +380,12 @@ export default function ArcadeLXHero() {
         ======================================================= */}
 
                 <div ref={kioskRef} className="hero-kiosk relative z-10">
-          <KioskVisual />
+          <div className="block md:hidden">
+            <KioskVisual compact />
+          </div>
+          <div className="hidden md:block">
+            <KioskVisual />
+          </div>
         </div>
       </div>
 
@@ -523,4 +528,6 @@ function Feature({
     </div>
   );
 }
+
+
 

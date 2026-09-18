@@ -80,58 +80,7 @@ export default function SiteHeader() {
 
           {/* Desktop CTA */}
           
-                      <button
-                        type="button"
-                        className="
-                          group
-                          relative
-                          flex
-                          h-[45px]
-                          md:hidden
-                          sm:hidden
-                          items-center
-                          gap-3
-                          overflow-hidden
-                          rounded-full
-                          bg-gradient-to-r
-                          from-cyan-400
-                          via-blue-500
-                          to-fuchsia-500
-                          px-6
-                          text-[11px]
-                          font-bold
-                          uppercase
-                          tracking-[0.13em]
-                          text-white
-                          shadow-[0_0_28px_rgba(59,130,246,0.25)]
-                          transition-all
-                          duration-300
-                          hover:scale-[1.04]
-                          hover:shadow-[0_0_38px_rgba(217,70,239,0.4)]
-                        "
-                      >
-                        <span className="relative z-10">ORDER NOW</span>
-          
-                        <span
-                          className="
-                            relative
-                            z-10
-                            flex
-                            h-7
-                            w-7
-                            items-center
-                            justify-center
-                            rounded-full
-                            bg-white/20
-                            backdrop-blur-sm
-                            transition-transform
-                            duration-300
-                            group-hover:translate-x-1
-                          "
-                        >
-                          <ArrowRight size={15} />
-                        </span>
-                      </button>
+                      
 
           {/* Mobile menu button */}
           <button
