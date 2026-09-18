@@ -12,6 +12,11 @@ import {
   Plug,
 } from "./Icon";
 
+// Elements GSAP animates in. Kept as a single constant so the
+// mount-safety fallback and the GSAP selectors always agree.
+const ANIMATED_SELECTOR =
+  ".arcade-eyebrow, .arcade-title-line, .arcade-description, .arcade-actions, .hero-kiosk, .arcade-feature";
+
 export default function ArcadeLXHero() {
   const heroRef = useRef<HTMLElement | null>(null);
   const kioskRef = useRef<HTMLDivElement | null>(null);
@@ -103,7 +108,20 @@ export default function ArcadeLXHero() {
       }
     }, heroRef);
 
-    return () => ctx.revert();
+    // Safety net: if GSAP's intro timeline never runs for any reason
+    // (slow mobile hydration, a thrown error inside the context, a
+    // StrictMode remount race, etc.), force every animated element
+    // back to fully visible after a short delay instead of leaving
+    // it permanently at opacity: 0. This is the main fix for the
+    // kiosk card disappearing on phone view.
+    const revealFallback = window.setTimeout(() => {
+      gsap.set(ANIMATED_SELECTOR, { clearProps: "opacity,transform" });
+    }, 1800);
+
+    return () => {
+      ctx.revert();
+      window.clearTimeout(revealFallback);
+    };
   }, []);
 
   return (
@@ -383,7 +401,7 @@ export default function ArcadeLXHero() {
           <div className="block md:hidden">
             <KioskVisual compact />
           </div>
-          <div className="hidden md:block">
+          <div className=" md:block">
             <KioskVisual />
           </div>
         </div>
@@ -528,6 +546,3 @@ function Feature({
     </div>
   );
 }
-
-
-

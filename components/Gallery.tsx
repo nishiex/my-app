@@ -46,6 +46,12 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Events",
     alt: "ARCADELX at an event",
   },
+   {
+    id: 4,
+    image: "/gallery/Machine_01.png",
+    category: "Events",
+    alt: "ARCADELX at an event",
+  },
 ];
 
 export default function Gallery() {
@@ -378,28 +384,7 @@ export default function Gallery() {
             that collision was what made the buttons jump downward on
             click/hover.
           */}
-          <div className="absolute inset-y-0 left-[-14px] z-20 flex items-center sm:left-[-16px]">
-            <button
-              type="button"
-              aria-label="Previous gallery images"
-              onClick={() => swiperRef.current?.slidePrev()}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/80 bg-[#071026]/95 text-cyan-300 shadow-[0_0_18px_rgba(34,211,238,0.14)] backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-cyan-300 hover:text-[#04101d]"
-            >
-              <ArrowLeft size={15} strokeWidth={2} />
-            </button>
           </div>
-
-          <div className="absolute inset-y-0 right-[-14px] z-20 flex items-center sm:right-[-16px]">
-            <button
-              type="button"
-              aria-label="Next gallery images"
-              onClick={() => swiperRef.current?.slideNext()}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/80 bg-[#071026]/95 text-cyan-300 shadow-[0_0_18px_rgba(34,211,238,0.14)] backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-cyan-300 hover:text-[#04101d]"
-            >
-              <ArrowRight size={15} strokeWidth={2} />
-            </button>
-          </div>
-        </div>
 
         {/* Pagination dots */}
         <div className="mt-4 flex items-center justify-center gap-3">
@@ -428,4 +413,5 @@ export default function Gallery() {
     </section>
   );
 }
+
 

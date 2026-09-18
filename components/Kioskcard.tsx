@@ -28,15 +28,15 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
     const ctx = gsap.context(() => {
       const images = gsap.utils.toArray<HTMLElement>(".gsap-kiosk-img");
 
+      // Always guarantee at least the first screen is visible,
+      // even if the crossfade setup below can't run (e.g. fewer
+      // than 2 images found because one hasn't mounted/loaded yet).
+      if (images.length === 0) return;
+
+      gsap.set(images, { opacity: 0 });
+      gsap.set(images[0], { opacity: 1 });
+
       if (images.length < 2) return;
-
-      gsap.set(images, {
-        opacity: 0,
-      });
-
-      gsap.set(images[0], {
-        opacity: 1,
-      });
 
       const tl = gsap.timeline({
         repeat: -1,
@@ -73,10 +73,7 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
         compact ? "max-w-[350px]" : "w-[92vw] max-w-[430px] md:w-[430px]",
       ].join(" ")}
     >
-      {/* =====================================================
-          AMBIENT KIOSK GLOW
-      ===================================================== */}
-
+      {/* AMBIENT KIOSK GLOW */}
       <div
         className="
           pointer-events-none
@@ -95,7 +92,6 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
       />
 
       {/* Secondary purple glow */}
-
       <div
         className="
           pointer-events-none
@@ -111,30 +107,35 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
         "
       />
 
-      {/* =====================================================
-          KIOSK STAGE
-      ===================================================== */}
-
+      {/* KIOSK STAGE */}
       <div className="relative w-full aspect-[500/700]">
         {/* UI SCREEN — BEHIND THE KIOSK */}
         <div
           className="
-      absolute
-      left-[18%]
-      right-[18%]
-      top-[20%]
-      h-[46%]
-      overflow-hidden
-      z-10
-    "
+            absolute
+            left-[18%]
+            right-[18%]
+            top-[20%]
+            h-[46%]
+            overflow-hidden
+            z-10
+          "
         >
           {UI_SCREENS.map((screen, idx) => (
-            <div key={screen} className="gsap-kiosk-img absolute inset-0 ">
+            // Default opacity-100 in markup so screens are visible
+            // even before GSAP has had a chance to run on mobile;
+            // GSAP will immediately set image[0] to 1 and the rest
+            // to 0 once it mounts, so this is just a safe fallback.
+            <div
+              key={screen}
+              className="gsap-kiosk-img absolute inset-0 opacity-100 first:opacity-100 [&:not(:first-child)]:opacity-0"
+            >
               <Image
                 src={screen}
                 alt={`Kiosk Screen ${idx + 1}`}
                 fill
-                className="object-contain "
+                sizes="(max-width: 768px) 92vw, 430px"
+                className="object-contain"
               />
             </div>
           ))}
@@ -146,19 +147,16 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
           alt="ArcadeLX Gaming Kiosk"
           fill
           priority
+          sizes="(max-width: 768px) 92vw, 430px"
           className="
-      relative
-      z-20
-      object-contain
-      pointer-events-none
-      select-none
-    "
+            relative
+            z-20
+            object-contain
+            pointer-events-none
+            select-none
+          "
         />
       </div>
-
-      {/* =====================================================
-          LABEL
-      ===================================================== */}
 
       {!compact && (
         <div
@@ -171,9 +169,7 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
             text-left
             md:block
           "
-        >
-          
-        </div>
+        />
       )}
     </div>
   );
@@ -207,8 +203,6 @@ function HeroFeature({
         md:px-6
       "
     >
-      {/* Icon */}
-
       <span
         className="
           mr-2
@@ -224,8 +218,6 @@ function HeroFeature({
       >
         {icon}
       </span>
-
-      {/* Text */}
 
       <div className="min-w-0">
         <p
@@ -265,6 +257,11 @@ function HeroFeature({
 /* =========================================================
    HERO
 ========================================================= */
+
+// Elements GSAP animates in. Kept as a single constant so the
+// mount-safety fallback and the GSAP selectors always agree.
+const ANIMATED_SELECTOR =
+  ".hero-eyebrow, .hero-title-line, .hero-description, .hero-actions, .hero-kiosk, .hero-feature";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -331,10 +328,7 @@ export default function Hero() {
           "-=0.45",
         );
 
-      /* =====================================================
-         KIOSK FLOATING MOTION
-      ===================================================== */
-
+      // KIOSK FLOATING MOTION
       gsap.to(".hero-kiosk", {
         y: -8,
         duration: 2.8,
@@ -343,10 +337,7 @@ export default function Hero() {
         ease: "sine.inOut",
       });
 
-      /* =====================================================
-         GLOW PULSE
-      ===================================================== */
-
+      // GLOW PULSE
       gsap.to(".hero-kiosk-glow", {
         scale: 1.12,
         opacity: 0.75,
@@ -357,7 +348,20 @@ export default function Hero() {
       });
     }, heroRef);
 
-    return () => ctx.revert();
+    // Safety net: if GSAP's intro timeline never runs for any reason
+    // (slow mobile hydration, a thrown error inside the context, a
+    // StrictMode remount race, etc.), force every animated element
+    // back to fully visible after a short delay instead of leaving
+    // it permanently at opacity: 0. This is the main fix for content
+    // disappearing on phone view.
+    const revealFallback = window.setTimeout(() => {
+      gsap.set(ANIMATED_SELECTOR, { clearProps: "opacity,transform" });
+    }, 1800);
+
+    return () => {
+      ctx.revert();
+      window.clearTimeout(revealFallback);
+    };
   }, []);
 
   return (
@@ -373,12 +377,7 @@ export default function Hero() {
         text-white
       "
     >
-      {/* =====================================================
-          BACKGROUND
-      ===================================================== */}
-
-      {/* Main purple background */}
-
+      {/* BACKGROUND */}
       <div
         className="
           pointer-events-none
@@ -390,8 +389,6 @@ export default function Hero() {
           bg-[radial-gradient(circle_at_65%_42%,rgba(76,29,149,0.25),transparent_55%)]
         "
       />
-
-      {/* Blue glow */}
 
       <div
         className="
@@ -408,10 +405,7 @@ export default function Hero() {
         "
       />
 
-      {/* =====================================================
-          MAIN CONTENT
-      ===================================================== */}
-
+      {/* MAIN CONTENT */}
       <div
         className="
           relative
@@ -429,10 +423,7 @@ export default function Hero() {
           lg:px-10
         "
       >
-        {/* ===================================================
-            LEFT CONTENT
-        =================================================== */}
-
+        {/* LEFT CONTENT */}
         <div
           className="
             relative
@@ -446,8 +437,6 @@ export default function Hero() {
             md:pb-16
           "
         >
-          {/* Eyebrow */}
-
           <p
             className="
               hero-eyebrow
@@ -475,10 +464,6 @@ export default function Hero() {
             />
             MOVE · PLAY · STAY ACTIVE
           </p>
-
-          {/* =================================================
-              TITLE
-          ================================================= */}
 
           <h1
             className="
@@ -512,8 +497,6 @@ export default function Hero() {
             <span className="hero-title-line block">XPERIENCE.</span>
           </h1>
 
-          {/* Description */}
-
           <p
             className="
               hero-description
@@ -529,10 +512,6 @@ export default function Hero() {
             public spaces.
           </p>
 
-          {/* =================================================
-              ACTIONS
-          ================================================= */}
-
           <div
             className="
               hero-actions
@@ -544,8 +523,6 @@ export default function Hero() {
               gap-7
             "
           >
-            {/* Order */}
-
             <a
               href="mailto:hello@arcadelx.com"
               className="
@@ -592,8 +569,6 @@ export default function Hero() {
               </span>
             </a>
 
-            {/* Watch video */}
-
             <a
               href="#video"
               className="
@@ -634,10 +609,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ===================================================
-            RIGHT KIOSK
-        =================================================== */}
-
+        {/* RIGHT KIOSK */}
         <div
           className="
             relative
@@ -648,8 +620,6 @@ export default function Hero() {
             md:min-h-[650px]
           "
         >
-          {/* Glow */}
-
           <div
             className="
               hero-kiosk-glow
@@ -668,21 +638,12 @@ export default function Hero() {
             "
           />
 
-          {/* Kiosk */}
-
           <div className="hero-kiosk relative z-10">
             <KioskVisual />
           </div>
         </div>
 
-        {/* ===================================================
-            FEATURES
-
-            IMPORTANT:
-            col-span-2 fixes the old issue where the feature
-            strip occupied only the first grid column.
-        =================================================== */}
-
+        {/* FEATURES */}
         <div
           className="
             hero-feature
