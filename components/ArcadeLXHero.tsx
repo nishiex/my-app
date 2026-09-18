@@ -228,7 +228,7 @@ export default function ArcadeLXHero() {
               xl:text-[94px]
             "
           >
-            <span className="arcade-title-line block">LIVE THE</span>
+            <span className="arcade-title-line block">limitless</span>
 
             <span
               className="
