@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -17,37 +17,18 @@ const VIDEOS: VideoItem[] = [
     id: 1,
     title: "ArcadeLX Overview",
     duration: "1:24",
-    thumbnail: "/images/video-thumb-1.jpg",
-    video: "/videos/arcadelx-overview.mp4",
-  },
-  {
-    id: 2,
-    title: "Gameplay Experience",
-    duration: "0:48",
-    thumbnail: "/images/video-thumb-2.jpg",
-    video: "/videos/gameplay-experience.mp4",
-  },
-  {
-    id: 3,
-    title: "Quick Setup Guide",
-    duration: "1:10",
-    thumbnail: "/images/video-thumb-3.jpg",
-    video: "/videos/quick-setup.mp4",
-  },
-  {
-    id: 4,
-    title: "At Malls & Events",
-    duration: "0:56",
-    thumbnail: "/images/video-thumb-4.jpg",
-    video: "/videos/malls-events.mp4",
+    thumbnail: "/limitless-gaming.png",
+    video: "https://www.youtube.com/watch?v=vB_9_37kPGA",
   },
 ];
 
 export default function VideoSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const playerRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<HTMLVideoElement | null>(null);
+  const mediaRef = useRef<HTMLDivElement | null>(null);
   const [activeVideo, setActiveVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [iframePlaying, setIframePlaying] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -68,9 +49,20 @@ export default function VideoSection() {
     return () => ctx.revert();
   }, []);
 
+  const isYouTubeUrl = (url: string) => /(?:youtube\.com|youtu\.be)/i.test(url);
+
+  const getYouTubeId = (url: string) => {
+    const m =
+      url.match(
+        /(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtu\.be\/)([A-Za-z0-9_-]{11})/
+      ) || url.match(/^([A-Za-z0-9_-]{11})$/);
+    return m ? m[1] : null;
+  };
+
   const changeVideo = (index: number) => {
     setActiveVideo(index);
     setIsPlaying(false);
+    setIframePlaying(false);
 
     requestAnimationFrame(() => {
       const video = playerRef.current;
@@ -91,6 +83,14 @@ export default function VideoSection() {
 
   const togglePlay = async () => {
     const video = playerRef.current;
+    const current = VIDEOS[activeVideo];
+
+    if (isYouTubeUrl(current.video)) {
+      const newState = !iframePlaying;
+      setIframePlaying(newState);
+      setIsPlaying(newState);
+      return;
+    }
 
     if (!video) return;
 
@@ -107,16 +107,21 @@ export default function VideoSection() {
     }
   };
 
-  const fullscreen = async () => {
-    const video = playerRef.current;
+  const handleIframePlay = () => {
+    setIframePlaying(true);
+    setIsPlaying(true);
+  };
 
-    if (!video) return;
+  const fullscreen = async () => {
+    const el = mediaRef.current ?? (playerRef.current as any);
+
+    if (!el) return;
 
     try {
       if (document.fullscreenElement) {
         await document.exitFullscreen();
       } else {
-        await video.requestFullscreen();
+        await (el as any).requestFullscreen();
       }
     } catch {
       // Fullscreen may be unavailable in some browsers.
@@ -156,7 +161,7 @@ export default function VideoSection() {
         </div>
 
         {/* Main layout */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_285px]">
+        <div className="grid grid-cols-1 gap-4">
           {/* Video player */}
           <div
             data-video-reveal
@@ -168,145 +173,121 @@ export default function VideoSection() {
               aria-hidden="true"
             />
 
-            <div className="relative aspect-video overflow-hidden rounded-lg bg-black">
-              <video
-                key={currentVideo.video}
-                ref={playerRef}
-                className="absolute inset-0 h-full w-full object-cover"
-                poster={currentVideo.thumbnail}
-                preload="metadata"
-                playsInline
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-                onEnded={() => setIsPlaying(false)}
-                controls
-              >
-                <source src={currentVideo.video} type="video/mp4" />
-                Your browser does not support the video element.
-              </video>
+            <div ref={mediaRef} className="relative aspect-video overflow-hidden rounded-lg bg-black">
+              {isYouTubeUrl(currentVideo.video) ? (
+                <>
+                  {!iframePlaying ? (
+                    <>
+                      <img
+                        src={currentVideo.thumbnail}
+                        alt={currentVideo.title}
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
 
-              {/* Center play button */}
-              {!isPlaying && (
-                <button
-                  type="button"
-                  onClick={togglePlay}
-                  aria-label="Play video"
-                  className="group absolute left-1/2 top-1/2 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-black/35 text-white backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-cyan-300 hover:bg-cyan-300/10 hover:shadow-[0_0_35px_rgba(103,232,249,0.3)]"
-                >
-                  <Play
-                    size={28}
-                    weight="fill"
-                    className="ml-1 transition-transform duration-300 group-hover:scale-110"
-                  />
-                </button>
+                      {!isPlaying && (
+                        <button
+                          type="button"
+                          onClick={handleIframePlay}
+                          aria-label="Play video"
+                          className="group absolute left-1/2 top-1/2 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-black/35 text-white backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-cyan-300 hover:bg-cyan-300/10 hover:shadow-[0_0_35px_rgba(103,232,249,0.3)]"
+                        >
+                          <Play
+                            size={28}
+                            weight="fill"
+                            className="ml-1 transition-transform duration-300 group-hover:scale-110"
+                          />
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <iframe
+                      width="1053"
+                      height="592"
+                      className="absolute inset-0 h-full w-full"
+                      src={`https://www.youtube.com/embed/${getYouTubeId(currentVideo.video)}`}
+                      title="Innovative Motion-Sensing Gaming Console"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  <video
+                    key={currentVideo.video}
+                    ref={playerRef}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    poster={currentVideo.thumbnail}
+                    preload="metadata"
+                    playsInline
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    onEnded={() => setIsPlaying(false)}
+                    controls
+                  >
+                    <source src={currentVideo.video} type="video/mp4" />
+                    Your browser does not support the video element.
+                  </video>
+
+                  {/* Center play button for native video */}
+                  {!isPlaying && (
+                    <button
+                      type="button"
+                      onClick={togglePlay}
+                      aria-label="Play video"
+                      className="group absolute left-1/2 top-1/2 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-black/35 text-white backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-cyan-300 hover:bg-cyan-300/10 hover:shadow-[0_0_35px_rgba(103,232,249,0.3)]"
+                    >
+                      <Play
+                        size={28}
+                        weight="fill"
+                        className="ml-1 transition-transform duration-300 group-hover:scale-110"
+                      />
+                    </button>
+                  )}
+                </>
               )}
 
-              {/* Custom bottom controls */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent px-3 pb-3 pt-10">
-                <div className="pointer-events-auto flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={togglePlay}
-                    className="flex h-8 w-8 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10"
-                    aria-label={isPlaying ? "Pause video" : "Play video"}
-                  >
-                    {isPlaying ? (
-                      <Pause size={15} />
-                    ) : (
-                      <Play size={15} />
-                    )}
-                  </button>
+              {/* Custom bottom controls (only for native video) */}
+              {!isYouTubeUrl(currentVideo.video) && (
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent px-3 pb-3 pt-10">
+                  <div className="pointer-events-auto flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={togglePlay}
+                      className="flex h-8 w-8 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10"
+                      aria-label={isPlaying ? "Pause video" : "Play video"}
+                    >
+                      {isPlaying ? (
+                        <Pause size={15} />
+                      ) : (
+                        <Play size={15} />
+                      )}
+                    </button>
+
+                    <button
+                      type="button"
+                      className="flex h-8 w-8 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10"
+                      aria-label="Toggle sound"
+                    >
+                      <SpeakerHigh size={15} />
+                    </button>
+                  </div>
 
                   <button
                     type="button"
-                    className="flex h-8 w-8 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10"
-                    aria-label="Toggle sound"
+                    onClick={fullscreen}
+                    className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10"
+                    aria-label="Fullscreen"
                   >
-                  <SpeakerHigh size={15} />
+                    <ArrowsOut size={15} />
                   </button>
                 </div>
-
-                <button
-                  type="button"
-                  onClick={fullscreen}
-                  className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10"
-                  aria-label="Fullscreen"
-                >
-                  <ArrowsOut size={15} />
-                </button>
-              </div>
+              )}
             </div>
           </div>
 
-          {/* Playlist */}
-          <div
-            data-video-reveal
-            className="flex flex-col gap-2"
-          >
-            {VIDEOS.map((video, index) => {
-              const active = index === activeVideo;
-
-              return (
-                <button
-                  key={video.id}
-                  type="button"
-                  onClick={() => changeVideo(index)}
-                  className={`group flex w-full items-center gap-3 rounded-xl border p-2 text-left transition-all duration-300 ${
-                    active
-                      ? "border-fuchsia-400/70 bg-gradient-to-r from-fuchsia-500/[0.16] to-cyan-400/[0.04] shadow-[0_0_25px_rgba(217,70,239,0.14)]"
-                      : "border-white/[0.07] bg-white/[0.018] hover:border-cyan-300/25 hover:bg-white/[0.035]"
-                  }`}
-                >
-                  {/* Thumbnail */}
-                  <div className="relative h-[62px] w-[92px] shrink-0 overflow-hidden rounded-lg border border-white/[0.08] bg-[#080b16]">
-                    <img
-                      src={video.thumbnail}
-                      alt=""
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-
-                    <div className="absolute inset-0 bg-black/25" />
-
-                    <span className="absolute left-1/2 top-1/2 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm">
-                      <Play size={12} weight="fill" />
-                    </span>
-
-                    <span className="absolute bottom-1 right-1 rounded bg-black/70 px-1.5 py-0.5 text-[8px] font-medium text-white">
-                      {video.duration}
-                    </span>
-                  </div>
-
-                  {/* Text */}
-                  <div className="min-w-0 flex-1">
-                    <p
-                      className={`truncate text-[11px] font-semibold leading-4 ${
-                        active ? "text-white" : "text-slate-300"
-                      }`}
-                    >
-                      {video.title}
-                    </p>
-
-                    <p
-                      className={`mt-1 text-[9px] uppercase tracking-[0.08em] ${
-                        active ? "text-cyan-300" : "text-slate-600"
-                      }`}
-                    >
-                      {active ? "Now playing" : "Watch video"}
-                    </p>
-                  </div>
-
-                  {/* Active indicator */}
-                  <span
-                    className={`mr-1 h-1.5 w-1.5 shrink-0 rounded-full transition-all ${
-                      active
-                        ? "bg-fuchsia-400 shadow-[0_0_10px_rgba(232,121,249,0.9)]"
-                        : "bg-slate-700"
-                    }`}
-                  />
-                </button>
-              );
-            })}
-          </div>
         </div>
       </div>
     </section>

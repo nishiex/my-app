@@ -17,7 +17,7 @@ export default function SiteHeader() {
         className={[
           "sticky top-0 z-[100] w-full",
           "border-b border-white/[0.07]",
-          "bg-[#040611]/10 backdrop-blur-2xl",
+          "bg-[#020817] ",
         ].join(" ")}
       >
         {/* Top neon line */}
