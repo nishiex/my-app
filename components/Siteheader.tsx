@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { ArrowRight, Play, Pulse, UsersThree, Cube, Plug } from "./Icon";
 
 const links = ["Home", "About", "Games", "Business", "Support"];
 
@@ -16,7 +17,7 @@ export default function SiteHeader() {
         className={[
           "sticky top-0 z-[100] w-full",
           "border-b border-white/[0.07]",
-          "bg-[#040611]/85 backdrop-blur-2xl",
+          "bg-[#040611]/10 backdrop-blur-2xl",
         ].join(" ")}
       >
         {/* Top neon line */}
@@ -30,11 +31,11 @@ export default function SiteHeader() {
             aria-label="ArcadeLX home"
           >
             <Image
-              className="h-auto w-[clamp(135px,13vw,190px)] transition-transform duration-300 group-hover:scale-[1.02]"
+              className="h-auto w-[clamp(135px,10vw,190px)] transition-transform duration-300 group-hover:scale-[1.02]"
               src="/arcadelx_logo.png"
               alt="ArcadeLX"
               width={190}
-              height={58}
+              height={40}
               priority
             />
           </a>
@@ -78,30 +79,59 @@ export default function SiteHeader() {
           </nav>
 
           {/* Desktop CTA */}
-          <a
-            href="mailto:hello@arcadelx.com"
-            className="hidden items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#050816] shadow-[0_0_25px_rgba(255,255,255,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(103,232,249,0.18)] md:inline-flex"
-          >
-            <span>Order now</span>
-
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#050816] text-white">
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 14 14"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M2.33333 7H11.6667M11.6667 7L7 2.33333M11.6667 7L7 11.6667"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-          </a>
+          
+                      <button
+                        type="button"
+                        className="
+                          group
+                          relative
+                          flex
+                          h-[45px]
+                          md:hidden
+                          sm:hidden
+                          items-center
+                          gap-3
+                          overflow-hidden
+                          rounded-full
+                          bg-gradient-to-r
+                          from-cyan-400
+                          via-blue-500
+                          to-fuchsia-500
+                          px-6
+                          text-[11px]
+                          font-bold
+                          uppercase
+                          tracking-[0.13em]
+                          text-white
+                          shadow-[0_0_28px_rgba(59,130,246,0.25)]
+                          transition-all
+                          duration-300
+                          hover:scale-[1.04]
+                          hover:shadow-[0_0_38px_rgba(217,70,239,0.4)]
+                        "
+                      >
+                        <span className="relative z-10">ORDER NOW</span>
+          
+                        <span
+                          className="
+                            relative
+                            z-10
+                            flex
+                            h-7
+                            w-7
+                            items-center
+                            justify-center
+                            rounded-full
+                            bg-white/20
+                            backdrop-blur-sm
+                            transition-transform
+                            duration-300
+                            group-hover:translate-x-1
+                          "
+                        >
+                          <ArrowRight size={15} />
+                        </span>
+                      </button>
 
           {/* Mobile menu button */}
           <button
@@ -196,7 +226,7 @@ export default function SiteHeader() {
             <a
               href="mailto:hello@arcadelx.com"
               onClick={closeMenu}
-              className="mt-5 flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#050816]"
+              className="mt-5 flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#050816] hidden"
             >
               <span>Order now</span>
 

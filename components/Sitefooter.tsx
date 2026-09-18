@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight } from "@phosphor-icons/react";
+import { ArrowRight } from "./Icon";
 
 export default function SiteFooter() {
   return (
@@ -49,11 +49,10 @@ export default function SiteFooter() {
               className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-cyan-300 transition-colors duration-200 hover:text-white"
             >
               hello@arcadelx.com
-              <ArrowRight
-                size={14}
-                weight="bold"
-                className="transition-transform duration-200 group-hover:translate-x-1"
-              />
+                <ArrowRight
+                  size={14}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
             </a>
           </div>
 

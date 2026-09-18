@@ -16,9 +16,8 @@ import {
   ArrowCircleDown,
   Storefront,
   ArrowRight,
-} from "@phosphor-icons/react";
-import SiteHeader from "./layout/SiteHeader";
-import SiteFooter from "./layout/SiteFooter";
+} from "../../components/Icon";
+
 
 const NAV_SECTIONS = [
   { id: "s1", label: "How Payment Works" },
@@ -216,7 +215,7 @@ export default function RefundPolicyPage() {
       ref={root}
       className="min-h-screen overflow-x-hidden bg-[#040611] text-white"
     >
-      <SiteHeader />
+      
 
       {/* HERO */}
       <section
@@ -1039,7 +1038,7 @@ export default function RefundPolicyPage() {
         </article>
       </div>
 
-      <SiteFooter />
+      
     </main>
   );
 }

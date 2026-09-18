@@ -28,9 +28,8 @@ import {
   Wrench,
   XCircle,
   ClipboardText,
-} from "@phosphor-icons/react";
-import SiteHeader from "./layout/SiteHeader";
-import SiteFooter from "./layout/SiteFooter";
+} from "../../components/Icon";
+
 
 /* ── Sidebar nav data ────────────────────────────────────────────── */
 const PARTS = [
@@ -179,7 +178,7 @@ export default function TermsPage() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#050816] text-white" ref={root}>
-      <SiteHeader />
+      
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative isolate flex min-h-[420px] items-center overflow-hidden border-b border-white/5 bg-[#050816]" aria-label="Terms and Conditions hero">
@@ -222,7 +221,7 @@ export default function TermsPage() {
 
       {/* ── Mobile TOC ────────────────────────────────────────── */}
 
-      <TrustedBy />
+      
 
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:hidden">
         <MobileTOC />
@@ -863,7 +862,7 @@ export default function TermsPage() {
         </a>
       </div>
 
-      <SiteFooter />
+      
     </main>
   );
 }

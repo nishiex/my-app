@@ -36,7 +36,7 @@ export default function RootLayout({
           {children}
         </main>
 
-        <SiteFooter />
+        <SiteFooter/>
       </body>
     </html>
   );

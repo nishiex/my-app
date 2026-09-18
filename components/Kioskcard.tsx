@@ -3,14 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import {
-  ArrowRight,
-  Play,
-  Pulse,
-  UsersThree,
-  Cube,
-  Plug,
-} from "@phosphor-icons/react";
+import { ArrowRight, Play, Pulse, UsersThree, Cube, Plug } from "./Icon";
 
 const UI_SCREENS = [
   "/images/Calibration_Page (1).png",
@@ -122,7 +115,7 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
           KIOSK STAGE
       ===================================================== */}
 
-      <div className="relative w-full aspect-[420/700]">
+      <div className="relative w-full aspect-[500/700]">
         {/* UI SCREEN — BEHIND THE KIOSK */}
         <div
           className="
@@ -179,30 +172,7 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
             md:block
           "
         >
-          <p
-            className="
-              text-[9px]
-              font-medium
-              uppercase
-              tracking-[0.30em]
-              text-white
-            "
-          >
-            GAMING
-          </p>
-
-          <p
-            className="
-              mt-1
-              text-[10px]
-              font-bold
-              uppercase
-              tracking-[0.18em]
-              text-slate-300
-            "
-          >
-            MEETS MOVEMENT
-          </p>
+          
         </div>
       )}
     </div>
@@ -618,7 +588,7 @@ export default function Hero() {
                   group-hover:translate-x-1
                 "
               >
-                <ArrowRight size={14} weight="bold" />
+                <ArrowRight size={14} />
               </span>
             </a>
 
@@ -657,7 +627,7 @@ export default function Hero() {
                   group-hover:bg-cyan-400/10
                 "
               >
-                <Play size={12} weight="fill" />
+                <Play size={12} />
               </span>
               WATCH VIDEO
             </a>
@@ -730,25 +700,25 @@ export default function Hero() {
           "
         >
           <HeroFeature
-            icon={<Pulse size={18} weight="duotone" />}
+            icon={<Pulse size={18} />}
             title="MOTION SENSING"
             subtitle="GAMEPLAY"
           />
 
           <HeroFeature
-            icon={<UsersThree size={18} weight="duotone" />}
+            icon={<UsersThree size={18} />}
             title="FUN FOR ALL"
             subtitle="AGE GROUPS"
           />
 
           <HeroFeature
-            icon={<Cube size={18} weight="duotone" />}
+            icon={<Cube size={18} />}
             title="COMPACT & EFFICIENT"
             subtitle="SPACE EFFICIENT"
           />
 
           <HeroFeature
-            icon={<Plug size={18} weight="duotone" />}
+            icon={<Plug size={18} />}
             title="PLUG & PLAY"
             subtitle="SETUP"
           />

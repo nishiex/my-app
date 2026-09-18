@@ -10,7 +10,7 @@ import {
   UsersThree,
   Cube,
   Plug,
-} from "@phosphor-icons/react";
+} from "./Icon";
 
 export default function ArcadeLXHero() {
   const heroRef = useRef<HTMLElement | null>(null);
@@ -164,6 +164,7 @@ export default function ArcadeLXHero() {
           min-h-[760px]
           max-w-[1320px]
           flex-col
+          items-center
           px-6
           pb-28
           pt-16
@@ -172,6 +173,7 @@ export default function ArcadeLXHero() {
           lg:items-center
           lg:px-10
           lg:pt-8
+          
         "
       >
         {/* =======================================================
@@ -326,7 +328,7 @@ export default function ArcadeLXHero() {
                   group-hover:translate-x-1
                 "
               >
-                <ArrowRight size={15} weight="bold" />
+                <ArrowRight size={15} />
               </span>
             </button>
 
@@ -365,7 +367,7 @@ export default function ArcadeLXHero() {
                   group-hover:bg-cyan-400/10
                 "
               >
-                <Play size={12} weight="fill" />
+                <Play size={12} />
               </span>
 
               <span>WATCH VIDEO</span>
@@ -412,7 +414,7 @@ export default function ArcadeLXHero() {
           {/* Feature 1 */}
 
           <Feature
-            icon={<Pulse size={17} weight="bold" />}
+            icon={<Pulse size={17} />}
             title="MOTION SENSING"
             subtitle="GAMEPLAY"
           />
@@ -420,7 +422,7 @@ export default function ArcadeLXHero() {
           {/* Feature 2 */}
 
           <Feature
-            icon={<UsersThree size={17} weight="bold" />}
+            icon={<UsersThree size={17} />}
             title="FUN FOR ALL"
             subtitle="AGE GROUPS"
           />
@@ -428,7 +430,7 @@ export default function ArcadeLXHero() {
           {/* Feature 3 */}
 
           <Feature
-            icon={<Cube size={17} weight="bold" />}
+            icon={<Cube size={17} />}
             title="COMPACT & EFFICIENT"
             subtitle="SPACE EFFICIENT"
           />
@@ -436,7 +438,7 @@ export default function ArcadeLXHero() {
           {/* Feature 4 */}
 
           <Feature
-            icon={<Plug size={17} weight="bold" />}
+            icon={<Plug size={17} />}
             title="PLUG & PLAY"
             subtitle="SETUP"
           />

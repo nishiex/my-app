@@ -26,9 +26,7 @@ import {
   Clock,
   Fingerprint,
   ArrowUpRight,
-} from "@phosphor-icons/react";
-import SiteHeader from "./layout/SiteHeader";
-import SiteFooter from "./layout/SiteFooter";
+} from "../../components/Icon";
 
 const NAV_SECTIONS = [
   { id: "pp1", label: "About ARCADELX" },
@@ -253,7 +251,6 @@ export default function PrivacyPolicyPage() {
       ref={root}
       className="min-h-screen overflow-x-hidden bg-[#040611] text-white"
     >
-      <SiteHeader />
 
       {/* HERO */}
       <section
@@ -1323,7 +1320,7 @@ export default function PrivacyPolicyPage() {
         </article>
       </div>
 
-      <SiteFooter />
+      
     </main>
   );
 }
