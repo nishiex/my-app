@@ -42,17 +42,17 @@ const chromePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
     // Check for ScrollTrigger availability (best-effort)
     result.scrollTriggerPresent = await page.evaluate(() => {
       try {
-        // Check common globals
-        // ScrollTrigger may not be global; check window.gsap.plugins.ScrollTrigger
-        // or window.ScrollTrigger
-        // eslint-disable-next-line no-undef
-        return (typeof (window).ScrollTrigger !== 'undefined') || (!!(window).gsap && !!(window).gsap.plugins && !!(window).gsap.plugins.ScrollTrigger);
+        return (typeof window.ScrollTrigger !== 'undefined') || (!!window.gsap && !!window.gsap.plugins && !!window.gsap.plugins.ScrollTrigger);
       } catch (e) {
         return false;
       }
     });
 
-    // Click the header "Games" link (href="#games") if present
+    // Wait for #games to exist, then click the header "Games" link (href="#games") if present
+    try {
+      await page.waitForSelector('#games', { timeout: 4000 });
+    } catch (e) { /* ignore */ }
+
     const linkHandle = await page.$('a[href="#games"]');
     result.hasGamesLink = !!linkHandle;
     if (linkHandle) {
@@ -83,5 +83,3 @@ const chromePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
   await browser.close();
   process.exit(0);
 })();
-
-

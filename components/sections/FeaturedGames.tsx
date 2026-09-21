@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
@@ -175,7 +175,7 @@ export default function FeaturedGames() {
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRef} id="games"
       className="relative overflow-hidden bg-[#020817] py-12 sm:py-16 lg:py-20"
     >
       {/* neon top line + radial glows */}
@@ -278,3 +278,5 @@ export default function FeaturedGames() {
     </section>
   );
 }
+
+
