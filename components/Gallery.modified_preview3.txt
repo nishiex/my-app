@@ -48,12 +48,7 @@ export default function Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  // Desktop-only: show exactly 4 images
-  const displayedItems = GALLERY_ITEMS.slice(0, 4);
-
-  const shouldLoop = false;
+  const [activeIndex, setActiveIndex] = useState(0);\r\n\r\n  // Desktop-only: show exactly 4 images\r\n  const displayedItems = GALLERY_ITEMS.slice(0, 4);\r\n\r\n  const shouldLoop = false;
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -106,8 +101,7 @@ export default function Gallery() {
         });
       }
 
-      
-      if (cards.length) {
+      \r\n      if (cards.length {
         gsap.from(cards, {
           y: 24,
           opacity: 0,
@@ -185,18 +179,18 @@ export default function Gallery() {
 
       <div className="relative mx-auto max-w-[1450px] px-10">
         {/* Header */}
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2
               data-gallery-heading
-              className="text-[44px] font-med uppercase leading-none tracking-[-0.045em] text-white"
+              className="text-[clamp(30px,4.3vw,46px)] font-med uppercase leading-none tracking-[-0.045em] text-white"
             >
               Gallery
             </h2>
 
             <p
               data-gallery-subtitle
-              className="mt-2 text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300"
+              className="mt-2 text-[10px] font-medium uppercase tracking-[0.1em] text-cyan-300 sm:text-[11px]"
             >
               Explore ARCADELX from every angle
             </p>
@@ -249,7 +243,7 @@ export default function Gallery() {
                         fill
                         sizes="25vw"
                         draggable={false}
-                        className="select-none object-contain object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                        className="select-none object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
                       />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/60 via-transparent to-transparent" />
@@ -301,8 +295,6 @@ export default function Gallery() {
     </section>
   );
 }
-
-
 
 
 

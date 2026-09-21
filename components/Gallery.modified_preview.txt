@@ -48,12 +48,7 @@ export default function Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  // Desktop-only: show exactly 4 images
-  const displayedItems = GALLERY_ITEMS.slice(0, 4);
-
-  const shouldLoop = false;
+  const [activeIndex, setActiveIndex] = useState(0);\r\n\r\n  // Desktop-only: show exactly 4 images\r\n  const displayedItems = GALLERY_ITEMS.slice(0, 4);\r\n\r\n  const shouldLoop = false;
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -106,7 +101,10 @@ export default function Gallery() {
         });
       }
 
-      
+      ,
+        });
+      }
+
       if (cards.length) {
         gsap.from(cards, {
           y: 24,
@@ -165,7 +163,7 @@ export default function Gallery() {
       ref={sectionRef}
       id="gallery"
       aria-label="ARCADELX Gallery"
-      className="relative overflow-hidden border-y border-white/[0.06] bg-[#030817] py-14 text-white"
+      className="relative overflow-hidden border-y border-white/[0.06] bg-[#030817] py-10 text-white sm:py-12 lg:py-14"
     >
       {/* Background */}
       <div
@@ -185,18 +183,18 @@ export default function Gallery() {
 
       <div className="relative mx-auto max-w-[1450px] px-10">
         {/* Header */}
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2
               data-gallery-heading
-              className="text-[44px] font-med uppercase leading-none tracking-[-0.045em] text-white"
+              className="text-[clamp(30px,4.3vw,46px)] font-med uppercase leading-none tracking-[-0.045em] text-white"
             >
               Gallery
             </h2>
 
             <p
               data-gallery-subtitle
-              className="mt-2 text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300"
+              className="mt-2 text-[10px] font-medium uppercase tracking-[0.1em] text-cyan-300 sm:text-[11px]"
             >
               Explore ARCADELX from every angle
             </p>
@@ -227,12 +225,11 @@ export default function Gallery() {
                 setActiveIndex(swiper.realIndex);
               }}
               loop={shouldLoop}
-              speed={500}
-              allowTouchMove={false}
-              grabCursor={false}
-              slidesPerView={4}
-              spaceBetween={20}
-              className="!overflow-visible"
+              speed={650}
+              grabCursor
+              allowTouchMove
+              watchOverflow
+              slidesPerView={4}\n              spaceBetween={20}\n              allowTouchMove={false}\n              grabCursor={false}\n              speed={500}\n              loop={shouldLoop}\n              className="!overflow-visible"
             >
               {displayedItems.map((item) => (
                 <SwiperSlide key={item.id}>
@@ -249,7 +246,7 @@ export default function Gallery() {
                         fill
                         sizes="25vw"
                         draggable={false}
-                        className="select-none object-contain object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                        className="select-none object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
                       />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/60 via-transparent to-transparent" />
@@ -288,10 +285,10 @@ export default function Gallery() {
                 onClick={() => {
                   swiperRef.current?.slideToLoop(index);
                 }}
-                className={`h-3 rounded-full transition-all duration-300 ${
+                className={`h-2.5 rounded-full transition-all duration-300 ${
                   active
-                    ? "w-3 bg-white shadow-[0_0_10px_rgba(255,255,255,0.45)]"
-                    : "w-2.5 bg-blue-300/25 hover:bg-blue-300/50"
+                    ? "w-2.5 bg-white shadow-[0_0_10px_rgba(255,255,255,0.45)]"
+                    : "w-2 bg-blue-300/25 hover:bg-blue-300/50"
                 }`}
               />
             );
@@ -301,10 +298,6 @@ export default function Gallery() {
     </section>
   );
 }
-
-
-
-
 
 
 

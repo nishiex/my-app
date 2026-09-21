@@ -228,7 +228,7 @@ export default function ReadyToBringArcadeLX() {
                 <div className="absolute inset-0 rounded-full bg-cyan-400/[0.08] blur-2xl" />
 
                 <Image
-                  src="/images/Kiosk_Machine_With Embalem_01_Transparent_Middle.png"
+                  src="/gallery/Machine_01.png"
                   alt="ARCADELX Gaming Kiosk"
                   fill
                   sizes="120px"

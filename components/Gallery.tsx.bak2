@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
@@ -50,10 +51,10 @@ export default function Gallery() {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Desktop-only: show exactly 4 images
-  const displayedItems = GALLERY_ITEMS.slice(0, 4);
+  // Filters removed: always show all gallery items.
+  const filteredItems = GALLERY_ITEMS;
 
-  const shouldLoop = false;
+  const shouldLoop = filteredItems.length > 5;
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -68,6 +69,9 @@ export default function Gallery() {
       );
       const subtitle = sectionRef.current?.querySelector(
         "[data-gallery-subtitle]"
+      );
+      const filters = gsap.utils.toArray<HTMLElement>(
+        "[data-gallery-filter]"
       );
       const cards = gsap.utils.toArray<HTMLElement>(
         "[data-gallery-card]"
@@ -106,7 +110,21 @@ export default function Gallery() {
         });
       }
 
-      
+      if (filters.length) {
+        gsap.from(filters, {
+          y: 14,
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.06,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: filters[0],
+            start: "top 90%",
+            once: true,
+          },
+        });
+      }
+
       if (cards.length) {
         gsap.from(cards, {
           y: 24,
@@ -165,7 +183,7 @@ export default function Gallery() {
       ref={sectionRef}
       id="gallery"
       aria-label="ARCADELX Gallery"
-      className="relative overflow-hidden border-y border-white/[0.06] bg-[#030817] py-14 text-white"
+      className="relative overflow-hidden border-y border-white/[0.06] bg-[#030817] py-10 text-white sm:py-12 lg:py-14"
     >
       {/* Background */}
       <div
@@ -183,20 +201,20 @@ export default function Gallery() {
         <div className="absolute right-[-6%] top-[24%] h-56 w-56 rounded-full bg-fuchsia-500/[0.05] blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-[1450px] px-10">
+      <div className="relative mx-auto max-w-[1450px] px-5 sm:px-8 lg:px-10">
         {/* Header */}
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2
               data-gallery-heading
-              className="text-[44px] font-med uppercase leading-none tracking-[-0.045em] text-white"
+              className="text-[clamp(30px,4.3vw,46px)] font-med uppercase leading-none tracking-[-0.045em] text-white"
             >
               Gallery
             </h2>
 
             <p
               data-gallery-subtitle
-              className="mt-2 text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300"
+              className="mt-2 text-[10px] font-medium uppercase tracking-[0.1em] text-cyan-300 sm:text-[11px]"
             >
               Explore ARCADELX from every angle
             </p>
@@ -218,7 +236,7 @@ export default function Gallery() {
           {/* Slide track: this is the only element that should clip */}
           <div className="overflow-hidden rounded-xl">
             <Swiper
-              key={`gallery-${displayedItems.length}`}
+              key={`gallery-${filteredItems.length}`}
               modules={[]}
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
@@ -227,29 +245,52 @@ export default function Gallery() {
                 setActiveIndex(swiper.realIndex);
               }}
               loop={shouldLoop}
-              speed={500}
-              allowTouchMove={false}
-              grabCursor={false}
-              slidesPerView={4}
-              spaceBetween={20}
+              speed={650}
+              grabCursor
+              allowTouchMove
+              watchOverflow
+              slidesPerView={1.25}
+              spaceBetween={8}
+              breakpoints={{
+                480: {
+                  slidesPerView: 2.15,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 2.6,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 3.25,
+                  spaceBetween: 12,
+                },
+                1024: {
+                  slidesPerView: 4.15,
+                  spaceBetween: 12,
+                },
+                1280: {
+                  slidesPerView: 5,
+                  spaceBetween: 12,
+                },
+              }}
               className="!overflow-visible"
             >
-              {displayedItems.map((item) => (
+              {filteredItems.map((item) => (
                 <SwiperSlide key={item.id}>
                   <article
                     data-gallery-card
                     onMouseEnter={handleCardEnter}
                     onMouseLeave={handleCardLeave}
-                    className="group relative cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 hover:-translate-y-2 hover:scale-105"
+                    className="group relative cursor-grab overflow-hidden rounded-xl active:cursor-grabbing"
                   >
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-white/[0.06] bg-[#071126] shadow-[0_16px_36px_rgba(0,0,0,0.28)] transition-all duration-300 hover:border-cyan-300/30">
+                    <div className="relative aspect-[9/16] sm:aspect-[3/5] overflow-hidden rounded-xl border border-white/[0.1] bg-[#071126] shadow-[0_12px_36px_rgba(0,0,0,0.28)] transition-all duration-300 group-hover:border-cyan-300/35">
                       <Image
                         src={item.image}
                         alt={item.alt}
                         fill
-                        sizes="25vw"
+                        sizes="(max-width: 639px) 75vw, (max-width: 1023px) 31vw, 20vw"
                         draggable={false}
-                        className="select-none object-contain object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                        className="select-none object-contain sm:object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.045]"
                       />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/60 via-transparent to-transparent" />
@@ -276,7 +317,7 @@ export default function Gallery() {
 
         {/* Pagination dots */}
         <div className="mt-4 flex items-center justify-center gap-3">
-          {displayedItems.map((item, index) => {
+          {filteredItems.map((item, index) => {
             const active = index === activeIndex;
 
             return (
@@ -288,10 +329,10 @@ export default function Gallery() {
                 onClick={() => {
                   swiperRef.current?.slideToLoop(index);
                 }}
-                className={`h-3 rounded-full transition-all duration-300 ${
+                className={`h-2.5 rounded-full transition-all duration-300 ${
                   active
-                    ? "w-3 bg-white shadow-[0_0_10px_rgba(255,255,255,0.45)]"
-                    : "w-2.5 bg-blue-300/25 hover:bg-blue-300/50"
+                    ? "w-2.5 bg-white shadow-[0_0_10px_rgba(255,255,255,0.45)]"
+                    : "w-2 bg-blue-300/25 hover:bg-blue-300/50"
                 }`}
               />
             );
@@ -301,12 +342,6 @@ export default function Gallery() {
     </section>
   );
 }
-
-
-
-
-
-
 
 
 
