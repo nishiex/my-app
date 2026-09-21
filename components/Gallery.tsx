@@ -269,7 +269,7 @@ export default function Gallery() {
 
           {/* Filters */}
           <div className="w-full overflow-x-auto overflow-y-hidden pb-1 sm:w-auto">
-            <div className="flex min-w-max items-center gap-1.5">
+            <div className="hidden sm:flex min-w-max items-center gap-1.5">
               {CATEGORIES.map((category) => {
                 const active = category === activeCategory;
 
@@ -413,5 +413,6 @@ export default function Gallery() {
     </section>
   );
 }
+
 
 

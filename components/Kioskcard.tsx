@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
@@ -70,7 +70,7 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
       ref={containerRef}
       className={[
         "relative z-10 flex w-full items-center justify-center",
-        compact ? "max-w-[350px]" : "w-[92vw] max-w-[430px] md:w-[430px]",
+        compact ? "w-[94vw] max-w-[420px]" : "w-[94vw] max-w-[520px] md:w-[430px]",
       ].join(" ")}
     >
       {/* AMBIENT KIOSK GLOW */}
@@ -108,18 +108,10 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
       />
 
       {/* KIOSK STAGE */}
-      <div className="relative w-full aspect-[500/700]">
-        {/* UI SCREEN — BEHIND THE KIOSK */}
+      <div className="relative w-full aspect-[500/700] min-h-[480px] md:min-h-[520px]">
+        {/* UI SCREEN â€” BEHIND THE KIOSK */}
         <div
-          className="
-            absolute
-            left-[18%]
-            right-[18%]
-            top-[20%]
-            h-[46%]
-            overflow-hidden
-            z-10
-          "
+          className="absolute left-[18%] right-[18%] top-[20%] h-[46%] min-h-[160px] sm:min-h-[200px] overflow-hidden z-10"
         >
           {UI_SCREENS.map((screen, idx) => (
             // Default opacity-100 in markup so screens are visible
@@ -141,12 +133,12 @@ export function KioskVisual({ compact = false }: { compact?: boolean }) {
           ))}
         </div>
 
-        {/* PHYSICAL KIOSK — IN FRONT */}
+        {/* PHYSICAL KIOSK â€” IN FRONT */}
         <Image
           src={KIOSK_SHELL_SRC}
           alt="ArcadeLX Gaming Kiosk"
           fill
-          priority
+           loading="eager" priority
           sizes="(max-width: 768px) 92vw, 430px"
           className="
             relative
@@ -462,7 +454,7 @@ export default function Hero() {
                 shadow-[0_0_12px_rgba(34,211,238,0.9)]
               "
             />
-            MOVE · PLAY · STAY ACTIVE
+            MOVE Â· PLAY Â· STAY ACTIVE
           </p>
 
           <h1
@@ -688,3 +680,5 @@ export default function Hero() {
     </section>
   );
 }
+
+

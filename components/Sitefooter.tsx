@@ -100,12 +100,12 @@ export default function SiteFooter() {
             </h3>
 
             <nav className="flex flex-col gap-1" aria-label="Support links">
-              <a
+              {/* <a
                 href="#contact"
                 className="py-1.5 text-sm text-slate-400 transition-colors hover:text-white"
               >
                 Contact us
-              </a>
+              </a> */}
 
               <a
                 href="/privacy-policy"
@@ -128,19 +128,19 @@ export default function SiteFooter() {
                 Refund &amp; Cancellation
               </a>
 
-              <a
+              {/* <a
                 href="#support"
                 className="py-1.5 text-sm text-slate-400 transition-colors hover:text-white"
               >
                 FAQs
-              </a>
+              </a> */}
 
-              <a
+              {/* <a
                 href="#support"
                 className="py-1.5 text-sm text-slate-400 transition-colors hover:text-white"
               >
                 Warranty
-              </a>
+              </a> */}
 
               <a
                 href="#support"

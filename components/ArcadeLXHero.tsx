@@ -288,14 +288,7 @@ export default function ArcadeLXHero() {
           {/* Actions */}
 
           <div
-            className="
-              arcade-actions
-              mt-9
-              flex
-              flex-wrap
-              items-center
-              gap-6
-            "
+            className="arcade-actions mt-9 flex items-center gap-6"
           >
             {/* Order Now */}
 
@@ -401,7 +394,7 @@ export default function ArcadeLXHero() {
           <div className="block md:hidden">
             <KioskVisual compact />
           </div>
-          <div className=" md:block">
+          <div className="hidden md:block">
             <KioskVisual />
           </div>
         </div>
@@ -546,3 +539,9 @@ function Feature({
     </div>
   );
 }
+
+
+
+
+
+
