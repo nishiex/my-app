@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowRight, Play, Pulse, UsersThree, Cube, Plug } from "./Icon";
 
-const links = ["Home", "About", "Games", "Business", "Support"];
+const links = [ "About", "Games", "Contact", "Support"];
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function SiteHeader() {
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
           {/* Brand */}
           <a
-            href="#home"
+            href="/"
             className="group flex shrink-0 items-center"
             aria-label="ArcadeLX home"
           >
@@ -201,3 +201,4 @@ export default function SiteHeader() {
     </>
   );
 }
+

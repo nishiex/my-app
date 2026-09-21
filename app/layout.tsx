@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+﻿import LenisProvider from "@/components/LenisProvider";
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SiteHeader from "@/components/Siteheader";
 import SiteFooter from "@/components/Sitefooter";
@@ -31,6 +32,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <SiteHeader />
+        <LenisProvider />
 
         <main className="flex-1">
           {children}
@@ -41,3 +43,4 @@ export default function RootLayout({
     </html>
   );
 }
+
