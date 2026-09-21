@@ -1,0 +1,8 @@
+﻿export default function Head() {
+  return (
+    <>
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" type="image/png" sizes="2048x2048" href="/Final_Logo_Symbol_2048x2048.png" />
+    </>
+  );
+}

@@ -17,7 +17,7 @@ const VIDEOS: VideoItem[] = [
     id: 1,
     title: "ArcadeLX Overview",
     duration: "1:24",
-    thumbnail: "/limitless-gaming-updated.png",
+    thumbnail: "/main.png",
     video: "https://www.youtube.com/watch?v=vB_9_37kPGA",
   },
 ];

@@ -17,14 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ARCADELX",
-  icons: {
-    icon: [
-      {
-        url: "/Final_Logo_Symbol_2048x2048.png",
-        type: "image/png",
-        sizes: "2048x2048",
-      },
-    ],
+  description: "Limitless Gaming Xperience",
+  icons: {\r\n    icon: [ { url: "/Final_Logo_Symbol_2048x2048.png?v=2", type: "image/png", sizes: "2048x2048" } ],\r\n    apple: "/Final_Logo_Symbol_2048x2048.png?v=2",\r\n  } ],
     apple: "/Final_Logo_Symbol_2048x2048.png",
   },
 };
@@ -52,7 +46,6 @@ export default function RootLayout({
     </html>
   );
 }
-
 
 
 
