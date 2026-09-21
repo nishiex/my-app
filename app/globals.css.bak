@@ -24,12 +24,3 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-
-/* Desktop helper: center grid items for .lg:grid at >=64rem */
-@media (min-width: 64rem) {
-  .lg\:grid {
-    display: grid;
-    justify-items: center;
-  }
-}
