@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,22 +9,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 
-type GalleryCategory = "All" | "Kiosk" | "Setup" | "In Action" | "Events";
-
 type GalleryItem = {
   id: number;
   image: string;
-  category: Exclude<GalleryCategory, "All">;
+  category: "Kiosk" | "Setup" | "In Action" | "Events";
   alt: string;
 };
-
-const CATEGORIES: GalleryCategory[] = [
-  "All",
-  "Kiosk",
-  "Setup",
-  "In Action",
-  "Events",
-];
 
 // Use images from the `public/gallery` folder (uploaded by the user).
 const GALLERY_ITEMS: GalleryItem[] = [
@@ -59,19 +49,10 @@ export default function Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const [activeCategory, setActiveCategory] =
-    useState<GalleryCategory>("All");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const filteredItems = useMemo(() => {
-    if (activeCategory === "All") {
-      return GALLERY_ITEMS;
-    }
-
-    return GALLERY_ITEMS.filter(
-      (item) => item.category === activeCategory
-    );
-  }, [activeCategory]);
+  // Filters removed: always show all gallery items.
+  const filteredItems = GALLERY_ITEMS;
 
   const shouldLoop = filteredItems.length > 5;
 
@@ -162,7 +143,7 @@ export default function Gallery() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [filteredItems.length]);
+  }, []);
 
   useEffect(() => {
     setActiveIndex(0);
@@ -177,38 +158,9 @@ export default function Gallery() {
     });
 
     return () => cancelAnimationFrame(frame);
-  }, [activeCategory]);
+  }, []);
 
-  const handleCategoryChange = (category: GalleryCategory) => {
-    if (category === activeCategory) {
-      return;
-    }
-
-    const gallery = sectionRef.current?.querySelector<HTMLElement>(
-      "[data-gallery-slider]"
-    );
-
-    if (gallery) {
-      gsap.to(gallery, {
-        opacity: 0.35,
-        scale: 0.985,
-        duration: 0.16,
-        ease: "power2.out",
-        onComplete: () => {
-          setActiveCategory(category);
-
-          gsap.to(gallery, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.35,
-            ease: "power2.out",
-          });
-        },
-      });
-    } else {
-      setActiveCategory(category);
-    }
-  };
+  // (removed) const handleCategoryChange = ...
 
   const handleCardEnter = (event: React.MouseEvent<HTMLElement>) => {
     gsap.to(event.currentTarget, {
@@ -268,31 +220,7 @@ export default function Gallery() {
             </p>
           </div>
 
-          {/* Filters */}
-          <div className="w-full overflow-x-auto overflow-y-hidden pb-1 sm:w-auto">
-            <div className="hidden sm:flex min-w-max items-center gap-1.5">
-              {CATEGORIES.map((category) => {
-                const active = category === activeCategory;
-
-                return (
-                  <button
-                    key={category}
-                    type="button"
-                    data-gallery-filter
-                    aria-pressed={active}
-                    onClick={() => handleCategoryChange(category)}
-                    className={`rounded-full border px-4 py-2 text-[9px] font-medium uppercase tracking-[0.05em] transition-all duration-300 sm:px-5 sm:text-[10px] ${
-                      active
-                        ? "border-transparent bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-white shadow-[0_0_22px_rgba(34,211,238,0.18)]"
-                        : "border-cyan-300/25 bg-white/[0.015] text-slate-300 hover:border-cyan-300/60 hover:text-white"
-                    }`}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+                    {/* Filters removed */}
         </div>
 
         {/*
@@ -308,7 +236,7 @@ export default function Gallery() {
           {/* Slide track: this is the only element that should clip */}
           <div className="overflow-hidden rounded-xl">
             <Swiper
-              key={`${activeCategory}-${filteredItems.length}`}
+              key={`gallery-${filteredItems.length}`}
               modules={[]}
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
@@ -414,6 +342,8 @@ export default function Gallery() {
     </section>
   );
 }
+
+
 
 
 
