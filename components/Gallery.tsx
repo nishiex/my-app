@@ -38,7 +38,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 3,
-    image: "/gallery/WhatsApp Image 2026-09-18 at 12.18.53 AM.png",
+    image: "/gallery/arcadelx.png",
     category: "Events",
     alt: "ARCADELX at an event",
   },
