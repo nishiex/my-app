@@ -28,6 +28,13 @@ const CATEGORIES: GalleryCategory[] = [
 
 // Use images from the `public/gallery` folder (uploaded by the user).
 const GALLERY_ITEMS: GalleryItem[] = [
+ 
+   {
+    id: 4,
+    image: "/gallery/Machine_01.png",
+    category: "Events",
+    alt: "ARCADELX at an event",
+  },
   {
     id: 1,
     image: "/gallery/WhatsApp Image 2026-09-18 at 12.18.50 AM.png",
@@ -43,12 +50,6 @@ const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 3,
     image: "/gallery/WhatsApp Image 2026-09-18 at 12.18.53 AM.png",
-    category: "Events",
-    alt: "ARCADELX at an event",
-  },
-   {
-    id: 4,
-    image: "/gallery/Machine_01.png",
     category: "Events",
     alt: "ARCADELX at an event",
   },
