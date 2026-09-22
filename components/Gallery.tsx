@@ -241,14 +241,14 @@ export default function Gallery() {
                     onMouseLeave={handleCardLeave}
                     className="group relative cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 md:hover:-translate-y-2 md:hover:scale-105"
                   >
-                    <div className="relative aspect-square md:aspect-[3/4] overflow-hidden rounded-xl border border-white/[0.06] bg-[#071126] shadow-[0_16px_36px_rgba(0,0,0,0.28)] transition-all duration-300 md:hover:border-cyan-300/30">
+                    <div className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-xl border border-white/[0.06] bg-[#071126] shadow-[0_16px_36px_rgba(0,0,0,0.28)] transition-all duration-300 md:hover:border-cyan-300/30">
                       <Image
                         src={item.image}
                         alt={item.alt}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         draggable={false}
-                        className="select-none object-contain object-center transition-transform duration-500 ease-out md:group-hover:scale-105"
+                        className="select-none object-cover object-center transition-transform duration-500 ease-out md:group-hover:scale-105"
                       />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/60 via-transparent to-transparent" />
