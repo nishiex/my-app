@@ -248,7 +248,7 @@ export default function Gallery() {
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         draggable={false}
-                        className="select-none object-cover object-center transition-transform duration-500 ease-out md:group-hover:scale-105"
+                        className="select-none object-contain object-center transition-transform duration-500 ease-out md:group-hover:scale-105"
                       />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/60 via-transparent to-transparent" />
