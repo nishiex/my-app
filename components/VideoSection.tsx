@@ -18,7 +18,7 @@ const VIDEOS: VideoItem[] = [
     title: "ArcadeLX Overview",
     duration: "1:24",
     thumbnail: "/main.png",
-    video: "https://www.youtube.com/watch?v=vB_9_37kPGA",
+    video: "https://youtu.be/KA8HqOMtfV4",
   },
 ];
 
