@@ -15,10 +15,8 @@ type GalleryItem = {
   alt: string;
 };
 
-// Use images from the `public/gallery` folder (uploaded by the user).
 const GALLERY_ITEMS: GalleryItem[] = [
- 
-   {
+  {
     id: 4,
     image: "/gallery/Machine_01.png",
     category: "Events",
@@ -106,7 +104,6 @@ export default function Gallery() {
         });
       }
 
-      
       if (cards.length) {
         gsap.from(cards, {
           y: 24,
@@ -142,9 +139,16 @@ export default function Gallery() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  // (removed) const handleCategoryChange = ...
+  // FIX: only run the hover lift on devices that actually support hover
+  // (mouse/trackpad). On touch devices, iOS Safari in particular fires a
+  // synthetic mouseenter on tap without a following mouseleave, which was
+  // leaving cards permanently shifted up (-5px) after a tap on mobile.
+  const supportsHover = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover)").matches;
 
   const handleCardEnter = (event: React.MouseEvent<HTMLElement>) => {
+    if (!supportsHover()) return;
     gsap.to(event.currentTarget, {
       y: -5,
       duration: 0.25,
@@ -153,6 +157,7 @@ export default function Gallery() {
   };
 
   const handleCardLeave = (event: React.MouseEvent<HTMLElement>) => {
+    if (!supportsHover()) return;
     gsap.to(event.currentTarget, {
       y: 0,
       duration: 0.25,
@@ -183,37 +188,27 @@ export default function Gallery() {
         <div className="absolute right-[-6%] top-[24%] h-56 w-56 rounded-full bg-fuchsia-500/[0.05] blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-[1450px] px-10">
+      <div className="relative mx-auto max-w-[1450px] px-6 md:px-10">
         {/* Header */}
         <div className="flex items-end justify-between gap-6">
           <div>
             <h2
               data-gallery-heading
-              className="text-[44px] font-med uppercase leading-none tracking-[-0.045em] text-white"
+              className="text-3xl md:text-[44px] font-med uppercase leading-none tracking-[-0.045em] text-white"
             >
               Gallery
             </h2>
 
             <p
               data-gallery-subtitle
-              className="mt-2 text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300"
+              className="mt-2 text-xs md:text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300"
             >
               Explore ARCADELX from every angle
             </p>
           </div>
-
-                    {/* Filters removed */}
         </div>
 
-        {/*
-          Gallery slider
-          NOTE: this wrapper is intentionally NOT overflow-hidden anymore.
-          The nav buttons below use negative left/right offsets to sit
-          partly outside the slide track, so if this wrapper clips
-          overflow, the buttons get visually cut off / misaligned
-          (most noticeable right after a slide transition). Only the
-          inner track (below) needs to clip the slides themselves.
-        */}
+        {/* Gallery slider */}
         <div data-gallery-slider className="relative mt-6">
           {/* Slide track: this is the only element that should clip */}
           <div className="overflow-hidden rounded-xl">
@@ -228,10 +223,14 @@ export default function Gallery() {
               }}
               loop={shouldLoop}
               speed={500}
-              allowTouchMove={false}
-              grabCursor={false}
-              slidesPerView={4}
-              spaceBetween={20}
+              allowTouchMove={true}
+              grabCursor={true}
+              breakpoints={{
+                320: { slidesPerView: 1, spaceBetween: 12 },
+                640: { slidesPerView: 2, spaceBetween: 16 },
+                1024: { slidesPerView: 3, spaceBetween: 20 },
+                1280: { slidesPerView: 4, spaceBetween: 20 },
+              }}
               className="!overflow-visible"
             >
               {displayedItems.map((item) => (
@@ -240,16 +239,16 @@ export default function Gallery() {
                     data-gallery-card
                     onMouseEnter={handleCardEnter}
                     onMouseLeave={handleCardLeave}
-                    className="group relative cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 hover:-translate-y-2 hover:scale-105"
+                    className="group relative cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 md:hover:-translate-y-2 md:hover:scale-105"
                   >
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-white/[0.06] bg-[#071126] shadow-[0_16px_36px_rgba(0,0,0,0.28)] transition-all duration-300 hover:border-cyan-300/30">
+                    <div className="relative aspect-square md:aspect-[3/4] overflow-hidden rounded-xl border border-white/[0.06] bg-[#071126] shadow-[0_16px_36px_rgba(0,0,0,0.28)] transition-all duration-300 md:hover:border-cyan-300/30">
                       <Image
                         src={item.image}
                         alt={item.alt}
                         fill
-                        sizes="25vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         draggable={false}
-                        className="select-none object-contain object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                        className="select-none object-contain object-center transition-transform duration-500 ease-out md:group-hover:scale-105"
                       />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/60 via-transparent to-transparent" />
@@ -261,18 +260,7 @@ export default function Gallery() {
               ))}
             </Swiper>
           </div>
-
-          {/*
-            Previous / Next
-            These are wrapped in a flex container that spans the full
-            track height (inset-y-0 + flex items-center) so the button
-            is centered WITHOUT using a translate-y transform. The
-            button itself only ever applies hover:scale-110 to itself,
-            so there's no translate+scale collision on one element â€”
-            that collision was what made the buttons jump downward on
-            click/hover.
-          */}
-          </div>
+        </div>
 
         {/* Pagination dots */}
         <div className="mt-4 flex items-center justify-center gap-3">
@@ -286,7 +274,10 @@ export default function Gallery() {
                 aria-label={`Go to gallery image ${index + 1}`}
                 aria-current={active ? "true" : undefined}
                 onClick={() => {
-                  swiperRef.current?.slideToLoop(index);
+                  // FIX: slideToLoop() only works with loop enabled.
+                  // shouldLoop is false, so use slideTo() instead —
+                  // this is why the dots did nothing before.
+                  swiperRef.current?.slideTo(index);
                 }}
                 className={`h-3 rounded-full transition-all duration-300 ${
                   active
@@ -301,14 +292,3 @@ export default function Gallery() {
     </section>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
