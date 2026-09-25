@@ -153,7 +153,7 @@ export default function ContactPage() {
 
   return (
     <main
-      className="min-h-screen overflow-x-hidden bg-[#050816] text-white"
+      className="min-h-screen overflow-x-clip bg-[#050816] text-white"
       ref={root}
     >
       {/* ── Hero ──────────────────────────────────────────────── */}
