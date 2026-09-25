@@ -231,7 +231,7 @@ export default function TermsPage() {
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-14 lg:px-12 lg:py-20 xl:gap-20">
         <DesktopSidebar activeId={activeId} />
 
-        <article className="min-w-0 max-w-4xl text-slate-300 [&>section>h2]:text-2xl [&>section>h2]:font-medium [&>section>h2]:tracking-tight [&>section>h2]:text-white [&>section>p]:mt-4 [&>section>p]:text-sm [&>section>p]:leading-7 [&>section>p]:text-slate-300 [&_strong]:font-medium [&_strong]:text-white" aria-label="Terms and conditions content">
+        <article className="min-w-0 max-w-4xl text-slate-300 [&>section>h3]:text-2xl [&>section>h3]:font-medium [&>section>h3]:tracking-tight [&>section>h3]:text-white [&>section>p]:mt-4 [&>section>p]:text-sm [&>section>p]:leading-7 [&>section>p]:text-slate-300 [&_strong]:font-medium [&_strong]:text-white" aria-label="Terms and conditions content">
 
           {/* ═══ PART A — CONSUMERS / PLAYERS ═══════════════════ */}
           <div className="relative border-y border-white/5 py-14 md:py-16" data-terms-reveal id="partA">
@@ -246,7 +246,7 @@ export default function TermsPage() {
 
           {/* S2 — Eligibility */}
           <section id="tc2" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">02.</span> Eligibility</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">02.</span> Eligibility</h3>
             <p>To use ARCADELX gaming kiosks, users must meet the following requirements:</p>
             <ol className="mt-6 grid gap-3">
               {[
@@ -265,7 +265,7 @@ export default function TermsPage() {
 
           {/* S3 — QR Payment */}
           <section id="tc3" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">03.</span> QR Payment &amp; Gaming Session</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">03.</span> QR Payment &amp; Gaming Session</h3>
             <p>
               ARCADELX operates on a QR-based payment model. The gaming session is activated
               upon successful payment confirmation.
@@ -302,7 +302,7 @@ export default function TermsPage() {
 
           {/* S4 — Pricing */}
           <section id="tc4" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">04.</span> Pricing</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">04.</span> Pricing</h3>
             <p>
               The applicable price for each ARCADELX gaming session is displayed on the kiosk
               before payment is made. Prices may vary depending on:
@@ -325,7 +325,7 @@ export default function TermsPage() {
 
           {/* S5 — Refund */}
           <section id="tc5" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">05.</span> Refund &amp; Failed Transactions</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">05.</span> Refund &amp; Failed Transactions</h3>
             <div className="mt-7 grid gap-5 md:grid-cols-2">
               <div className="rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.025] p-6">
                 <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Payment Issue</p>
@@ -375,7 +375,7 @@ export default function TermsPage() {
 
           {/* S6 — Technical Interruption */}
           <section id="tc6" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">06.</span> Technical Interruption</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">06.</span> Technical Interruption</h3>
             <p>
               ARCADELX is an internet-connected and technology-dependent platform. Interruptions
               may occasionally occur due to circumstances including:
@@ -413,7 +413,7 @@ export default function TermsPage() {
 
           {/* S7 — Safe Use */}
           <section id="tc7" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">07.</span> Safe Use of ARCADELX</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">07.</span> Safe Use of ARCADELX</h3>
             <p>ARCADELX involves physical, movement-based gameplay. Users must follow all safety guidelines:</p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {[
@@ -440,7 +440,7 @@ export default function TermsPage() {
 
           {/* S8 — Prohibited Use */}
           <section id="tc8" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">08.</span> Prohibited Use</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">08.</span> Prohibited Use</h3>
             <p>Users must not engage in the following activities:</p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {[
@@ -479,7 +479,7 @@ export default function TermsPage() {
 
           {/* S9 — Location Partners */}
           <section id="tc9" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">09.</span> Location Partners</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">09.</span> Location Partners</h3>
             <p>
               Nilee Games partners with a variety of commercial locations to deploy ARCADELX
               kiosks. Approved partner location types include:
@@ -501,7 +501,7 @@ export default function TermsPage() {
 
           {/* S10 — Installation */}
           <section id="tc10" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">10.</span> Installation &amp; Location</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">10.</span> Installation &amp; Location</h3>
             <p>
               Location Partners must ensure the following for successful and safe kiosk
               operation. Requirements may vary by ARCADELX model:
@@ -526,7 +526,7 @@ export default function TermsPage() {
 
           {/* S11 — Ownership */}
           <section id="tc11" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">11.</span> Ownership of Kiosk</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">11.</span> Ownership of Kiosk</h3>
             <div className="rounded-2xl border border-fuchsia-400/15 bg-fuchsia-400/[0.025] p-6 md:p-7">
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-fuchsia-300">Unless Expressly Agreed Otherwise in Writing</p>
               <p>
@@ -550,7 +550,7 @@ export default function TermsPage() {
 
           {/* S12 — Kiosk Security */}
           <section id="tc12" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">12.</span> Kiosk Security &amp; Care</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">12.</span> Kiosk Security &amp; Care</h3>
             <p>
               Location Partners must promptly inform Nilee Games of any incident affecting
               the kiosk, including:
@@ -582,7 +582,7 @@ export default function TermsPage() {
 
           {/* S13 — Revenue Sharing */}
           <section id="tc13" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">13.</span> Revenue Sharing / Commercial Terms</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">13.</span> Revenue Sharing / Commercial Terms</h3>
             <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 md:p-7">
               <p>
                 The revenue-sharing percentage, settlement frequency, payment procedures and
@@ -614,7 +614,7 @@ export default function TermsPage() {
 
           {/* S14 — Partner Responsibilities */}
           <section id="tc14" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">14.</span> Partner Responsibilities</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">14.</span> Partner Responsibilities</h3>
             <p>Location Partners are responsible for the following:</p>
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
               {[
@@ -638,7 +638,7 @@ export default function TermsPage() {
 
           {/* S15 — Maintenance & Support */}
           <section id="tc15" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">15.</span> Maintenance &amp; Technical Support</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">15.</span> Maintenance &amp; Technical Support</h3>
             <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 md:p-7">
               <p>
                 Technical support, software updates, maintenance and troubleshooting services
@@ -665,7 +665,7 @@ export default function TermsPage() {
 
           {/* S16 — IP */}
           <section id="tc16" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">16.</span> Intellectual Property</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">16.</span> Intellectual Property</h3>
             <p>
               All intellectual property rights in and to ARCADELX belong to Nilee Games
               and Future Technologies Pvt. Ltd. and/or its licensors:
@@ -688,7 +688,7 @@ export default function TermsPage() {
 
           {/* S17 — Data & Privacy */}
           <section id="tc17" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">17.</span> Data &amp; Privacy</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">17.</span> Data &amp; Privacy</h3>
             <p>Information may be processed in connection with the use of ARCADELX for:</p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {[
@@ -718,7 +718,7 @@ export default function TermsPage() {
 
           {/* S18 — Third-Party Services */}
           <section id="tc18" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">18.</span> Third-Party Services</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">18.</span> Third-Party Services</h3>
             <p>ARCADELX may rely on third-party infrastructure and service providers, including:</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {["Payment Gateways", "Cloud Infrastructure", "Internet / Network Providers", "Other Technology Providers"].map((c) => (
@@ -736,7 +736,7 @@ export default function TermsPage() {
 
           {/* S19 — Limitation of Liability */}
           <section id="tc19" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">19.</span> Limitation of Liability</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">19.</span> Limitation of Liability</h3>
             <p>
               To the extent permitted by applicable law, Nilee Games shall not be liable for
               losses or damage arising from:
@@ -765,7 +765,7 @@ export default function TermsPage() {
 
           {/* S20 — Force Majeure */}
           <section id="tc20" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">20.</span> Force Majeure</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">20.</span> Force Majeure</h3>
             <p>
               Nilee Games shall not be liable for failure or delay in performing its obligations
               where such failure or delay is caused by events beyond its reasonable control, including:
@@ -783,7 +783,7 @@ export default function TermsPage() {
 
           {/* S21 — Changes */}
           <section id="tc21" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">21.</span> Changes to These Terms</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">21.</span> Changes to These Terms</h3>
             <p>Nilee Games may update or modify these Terms from time to time due to changes in:</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {["Products", "Services", "Technology", "Legal Requirements", "Business Practices"].map((c) => (
@@ -800,7 +800,7 @@ export default function TermsPage() {
 
           {/* S22 — Termination */}
           <section id="tc22" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">22.</span> Termination</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">22.</span> Termination</h3>
             <p>
               Nilee Games may suspend or terminate access to ARCADELX where any of the
               following occur:
@@ -829,7 +829,7 @@ export default function TermsPage() {
 
           {/* S23 — Governing Law */}
           <section id="tc23" className="scroll-mt-28 border-b border-white/5 py-10 md:py-14" data-terms-reveal>
-            <h2><span className="mr-2 font-mono text-sm font-normal text-cyan-400">23.</span> Governing Law &amp; Jurisdiction</h2>
+            <h3><span className="mr-2 font-mono text-sm font-normal text-cyan-400">23.</span> Governing Law &amp; Jurisdiction</h3>
             <p>
               These Terms are governed by the laws of India. Any disputes arising out of or
               in connection with these Terms shall be subject to:

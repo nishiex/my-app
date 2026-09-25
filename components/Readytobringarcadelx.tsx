@@ -174,7 +174,7 @@ export default function ReadyToBringArcadeLX() {
               className="mt-5 flex flex-col gap-3 sm:flex-row"
             >
               <a
-                href="mailto:hello@arcadelx.com"
+                href="/contact"
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-500 via-fuchsia-500 to-cyan-400 px-5 py-3 text-xs font-semibold text-white shadow-[0_0_28px_rgba(217,70,239,0.2)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_35px_rgba(34,211,238,0.22)]"
               >
                 <span>Order Now</span>

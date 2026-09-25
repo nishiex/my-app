@@ -457,7 +457,7 @@ export default function Hero() {
             MOVE Â· PLAY Â· STAY ACTIVE
           </p>
 
-          <h1
+          <div
             className="
               mb-7
               max-w-[700px]
@@ -487,7 +487,7 @@ export default function Hero() {
             </span>
 
             <span className="hero-title-line block">XPERIENCE.</span>
-          </h1>
+          </div>
 
           <p
             className="

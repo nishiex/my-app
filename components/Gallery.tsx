@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -45,8 +45,6 @@ const GALLERY_ITEMS: GalleryItem[] = [
 export default function Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const swiperRef = useRef<SwiperType | null>(null);
-
-  const [activeIndex, setActiveIndex] = useState(0);
 
   // Desktop-only: show exactly 4 images
   const displayedItems = GALLERY_ITEMS.slice(0, 4);
@@ -125,8 +123,6 @@ export default function Gallery() {
   }, []);
 
   useEffect(() => {
-    setActiveIndex(0);
-
     const frame = requestAnimationFrame(() => {
       if (!swiperRef.current) {
         return;
@@ -218,9 +214,6 @@ export default function Gallery() {
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
               }}
-              onSlideChange={(swiper) => {
-                setActiveIndex(swiper.realIndex);
-              }}
               loop={shouldLoop}
               speed={500}
               allowTouchMove={true}
@@ -260,33 +253,6 @@ export default function Gallery() {
               ))}
             </Swiper>
           </div>
-        </div>
-
-        {/* Pagination dots */}
-        <div className="mt-4 flex items-center justify-center gap-3">
-          {displayedItems.map((item, index) => {
-            const active = index === activeIndex;
-
-            return (
-              <button
-                key={item.id}
-                type="button"
-                aria-label={`Go to gallery image ${index + 1}`}
-                aria-current={active ? "true" : undefined}
-                onClick={() => {
-                  // FIX: slideToLoop() only works with loop enabled.
-                  // shouldLoop is false, so use slideTo() instead —
-                  // this is why the dots did nothing before.
-                  swiperRef.current?.slideTo(index);
-                }}
-                className={`h-3 rounded-full transition-all duration-300 ${
-                  active
-                    ? "w-3 bg-white shadow-[0_0_10px_rgba(255,255,255,0.45)]"
-                    : "w-2.5 bg-blue-300/25 hover:bg-blue-300/50"
-                }`}
-              />
-            );
-          })}
         </div>
       </div>
     </section>

@@ -58,9 +58,9 @@ export default function SiteFooter() {
 
           {/* Quick links */}
           <div>
-            <h3 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+            <h2 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
               Quick links
-            </h3>
+            </h2>
 
             <nav className="flex flex-col gap-1" aria-label="Quick links">
               <a
@@ -95,17 +95,17 @@ export default function SiteFooter() {
 
           {/* Support */}
           <div>
-            <h3 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+            <h2 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
               Support
-            </h3>
+            </h2>
 
             <nav className="flex flex-col gap-1" aria-label="Support links">
-              {/* <a
-                href="#contact"
+              <a
+                href="/contact"
                 className="py-1.5 text-sm text-slate-400 transition-colors hover:text-white"
               >
                 Contact us
-              </a> */}
+              </a>
 
               <a
                 href="/privacy-policy"
@@ -153,9 +153,9 @@ export default function SiteFooter() {
 
           {/* Newsletter */}
           <div>
-            <h3 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+            <h2 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
               Stay updated
-            </h3>
+            </h2>
 
             <p className="max-w-xs text-sm leading-6 text-slate-400">
               Get the latest games, offers and news.

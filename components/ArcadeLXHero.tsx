@@ -1,8 +1,9 @@
 ﻿"use client";
 import { KioskVisual } from "./Kioskcard";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import VideoModal from "./VideoModal";
 import {
   ArrowRight,
   Play,
@@ -11,6 +12,10 @@ import {
   Cube,
   Plug,
 } from "./Icon";
+
+// YouTube id + poster for the hero "Watch Video" popup — matches VideoSection.
+const HERO_VIDEO_ID = "KA8HqOMtfV4";
+const HERO_VIDEO_THUMBNAIL = "/main.png";
 
 // Elements GSAP animates in. Kept as a single constant so the
 // mount-safety fallback and the GSAP selectors always agree.
@@ -21,6 +26,7 @@ export default function ArcadeLXHero() {
   const heroRef = useRef<HTMLElement | null>(null);
   const kioskRef = useRef<HTMLDivElement | null>(null);
   const glowRef = useRef<HTMLDivElement | null>(null);
+  const [videoOpen, setVideoOpen] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -125,6 +131,7 @@ export default function ArcadeLXHero() {
   }, []);
 
   return (
+    <>
     <section
       ref={heroRef}
       className="
@@ -292,8 +299,8 @@ export default function ArcadeLXHero() {
           >
             {/* Order Now */}
 
-            <button
-              type="button"
+            <a
+              href="/contact"
               className="
                 group
                 relative
@@ -341,12 +348,13 @@ export default function ArcadeLXHero() {
               >
                 <ArrowRight size={15} />
               </span>
-            </button>
+            </a>
 
             {/* Watch Video */}
 
             <button
               type="button"
+              onClick={() => setVideoOpen(true)}
               className="
                 group
                 flex
@@ -461,6 +469,15 @@ export default function ArcadeLXHero() {
         </div>
       </div>
     </section>
+
+      <VideoModal
+        open={videoOpen}
+        onClose={() => setVideoOpen(false)}
+        videoId={HERO_VIDEO_ID}
+        thumbnail={HERO_VIDEO_THUMBNAIL}
+        title="ArcadeLX Overview"
+      />
+    </>
   );
 }
 

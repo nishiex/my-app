@@ -4,7 +4,12 @@ import Image from "next/image";
 import { useState } from "react";
 import { ArrowRight, Play, Pulse, UsersThree, Cube, Plug } from "./Icon";
 
-const links = [ "About", "Games", "Contact", "Support"];
+const links = [
+  { label: "About", href: "#about" },
+  { label: "Games", href: "#games" },
+  { label: "Contact", href: "/contact" },
+  { label: "Support", href: "#support" },
+];
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -46,12 +51,12 @@ export default function SiteHeader() {
             aria-label="Primary navigation"
           >
             {links.map((link) => {
-              const isHome = link === "Home";
+              const isHome = link.label === "Home";
 
               return (
                 <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
+                  key={link.label}
+                  href={link.href}
                   className={[
                     "group relative py-2",
                     "text-[11px] uppercase tracking-[0.16em]",
@@ -61,7 +66,7 @@ export default function SiteHeader() {
                       : "text-slate-400 hover:text-white",
                   ].join(" ")}
                 >
-                  <span>{link}</span>
+                  <span>{link.label}</span>
 
                   <span
                     className={[
@@ -131,12 +136,12 @@ export default function SiteHeader() {
           >
             <div className="flex flex-col">
               {links.map((link) => {
-                const isHome = link === "Home";
+                const isHome = link.label === "Home";
 
                 return (
                   <a
-                    key={link}
-                    href={`#${link.toLowerCase()}`}
+                    key={link.label}
+                    href={link.href}
                     onClick={closeMenu}
                     className={[
                       "flex items-center justify-between",
@@ -148,7 +153,7 @@ export default function SiteHeader() {
                         : "text-slate-300 hover:text-white",
                     ].join(" ")}
                   >
-                    <span>{link}</span>
+                    <span>{link.label}</span>
 
                     <svg
                       width="14"
@@ -173,7 +178,7 @@ export default function SiteHeader() {
 
             {/* Mobile CTA */}
             <a
-              href="mailto:hello@arcadelx.com"
+              href="/contact"
               onClick={closeMenu}
               className="mt-5 flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#050816] hidden"
             >
