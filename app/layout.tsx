@@ -15,8 +15,73 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Canonical base URL. Keep in sync with app/sitemap.ts and app/robots.ts.
+// Override per-environment with NEXT_PUBLIC_SITE_URL.
+const BASE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.arcadelx.com"
+).replace(/\/$/, "");
+
+const SITE_DESCRIPTION =
+  "ArcadeLX is a next-generation motion-sensing gaming kiosk that brings immersive, full-body gaming to malls, offices, schools and public spaces.";
+
 export const metadata: Metadata = {
-  title: "ARCADELX",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "ARCADELX — Limitless Gaming Xperience",
+    template: "%s · ARCADELX",
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: "ARCADELX",
+  keywords: [
+    "ArcadeLX",
+    "motion sensing gaming",
+    "gaming kiosk",
+    "arcade machine",
+    "full-body gaming",
+    "interactive arcade",
+    "active gaming",
+    "mall entertainment",
+  ],
+  authors: [{ name: "ARCADELX" }],
+  creator: "ARCADELX",
+  publisher: "ARCADELX",
+  category: "technology",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "ARCADELX",
+    title: "ARCADELX — Limitless Gaming Xperience",
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/limitless-gaming-updated.png",
+        width: 1672,
+        height: 941,
+        alt: "ARCADELX — Limitless Gaming Xperience",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ARCADELX — Limitless Gaming Xperience",
+    description: SITE_DESCRIPTION,
+    images: ["/limitless-gaming-updated.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: [
       {
