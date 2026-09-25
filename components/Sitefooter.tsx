@@ -142,12 +142,7 @@ export default function SiteFooter() {
                 Warranty
               </a> */}
 
-              <a
-                href="#support"
-                className="py-1.5 text-sm text-slate-400 transition-colors hover:text-white"
-              >
-                Customer support
-              </a>
+              
             </nav>
           </div>
 
